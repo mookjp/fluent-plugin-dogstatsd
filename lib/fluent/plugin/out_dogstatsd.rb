@@ -60,6 +60,7 @@ module Fluent
           options = {}
           title = record.delete('title')
           text  = record.delete('text')
+          alert_type  = record.delete('alert_type')
           type  = @metric_type || record.delete('type')
           sample_rate = @sample_rate || record.delete('sample_rate')
 
@@ -76,6 +77,10 @@ module Fluent
             options[:tags] = tags.map do |k, v|
               "#{k}:#{v}"
             end
+          end
+
+          if alert_type
+            options[:alert_type] = alert_type
           end
 
           case type
