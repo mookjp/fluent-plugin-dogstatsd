@@ -11,6 +11,7 @@ module Fluent
     config_param :metric_type, :string, :default => nil
     config_param :value_key, :string, :default => nil
     config_param :sample_rate, :float, :default => nil
+    config_param :alert_type, :string, :default => nil
 
     unless method_defined?(:log)
       define_method(:log) { $log }
@@ -60,7 +61,7 @@ module Fluent
           options = {}
           title = record.delete('title')
           text  = record.delete('text')
-          alert_type  = record.delete('alert_type')
+          alert_type  = @alert_type || record.delete('alert_type')
           type  = @metric_type || record.delete('type')
           sample_rate = @sample_rate || record.delete('sample_rate')
 
